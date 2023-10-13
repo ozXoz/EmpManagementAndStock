@@ -12,6 +12,8 @@ router.use(isAdmin);
 router.get('/users', adminController.getAllUsers);
 router.get('/product-types', adminController.getAllProductTypes);
 router.get('/products', adminController.getAllProducts);
+router.put('/products/:id', adminController.updateProduct);
+router.delete('/products/:id', adminController.deleteProduct);
 router.post('/product-types', adminController.addProductType);
 router.put('/product-types/:id', adminController.updateProductType);
 router.delete('/product-types/:id', adminController.deleteProductType);
