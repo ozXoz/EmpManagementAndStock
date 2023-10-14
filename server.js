@@ -10,6 +10,7 @@ const adminRoutes = require('./routes/ adminRoutes'); // Import admin routes
 const isAdmin = require('./middlewares/isAdmin'); // Import isAdmin middleware
 const verifyToken = require('./middlewares/verifyToken'); // Adjust the path as needed
 
+
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,7 +25,6 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use('/api/users', userRoutes); // all user routes will be prefixed with '/api/users'
 app.use('/api/admin', verifyToken, adminRoutes); // Prefix admin routes with '/api/admin'
-
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });

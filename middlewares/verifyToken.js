@@ -6,12 +6,19 @@ const verifyToken = (req, res, next) => {
   if (authHeader) {
     const token = authHeader.split(' ')[1];
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
+        console.error('JWT verification error:', err);
         return res.status(403).json({ error: 'Token is not valid' });
       }
 
-      req.user = user; // Attaching user info to the request
+      console.log('Decoded user:', decoded);
+
+      req.user = {
+        _id: decoded._id,
+        role: decoded.role,
+        permissions: decoded.permissions, // Set permissions object
+      };
       next();
     });
   } else {
