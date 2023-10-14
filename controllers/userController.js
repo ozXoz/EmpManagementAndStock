@@ -67,24 +67,32 @@ exports.login = async (req, res) => {
 
 // Function to add a product
 // Function to add a product
+// Function to add a product
 exports.addProduct = async (req, res) => {
   // Check if the user has permission to add products
-  if (!req.user.permissions.addProduct) { // Change this line
+  if (!req.user.permissions.addProduct) {
     return res.status(403).json({ error: 'Unauthorized to add products' });
   }
 
   try {
-    // Add the product logic here (e.g., saving to the database)
+    // Add the product creation logic here (e.g., saving to the database)
     // ...
+    const newProduct = new Product(req.body);
+    // Respond with a success message and an HTTP status code indicating success (201 Created)
+    // Save the new product to the database
+    await newProduct.save();
     res.status(201).json({ message: 'Product added successfully' });
   } catch (error) {
+    // If there's an error during product creation, respond with an error message and a suitable HTTP status code (e.g., 400 Bad Request)
     res.status(400).json({ error: 'Error adding product' });
   }
 };
 
+
 // Similar changes for deleteProduct, updateProduct, and viewProducts
 
 
+// Function to delete a product
 // Function to delete a product
 exports.deleteProduct = async (req, res) => {
   // Check if the user has permission to delete products
@@ -92,18 +100,28 @@ exports.deleteProduct = async (req, res) => {
     return res.status(403).json({ error: 'Unauthorized to delete products' });
   }
 
+  const { id } = req.params;
+
   try {
-    // Add the delete product logic here (e.g., deleting from the database)
+    // Add the product deletion logic here (e.g., deleting from the database)
     // ...
+    await Product.findByIdAndDelete(id);
+
+
+    // Respond with an HTTP status code indicating success (204 No Content) since there's no response body for successful deletion
     res.status(204).send();
   } catch (error) {
+    // If there's an error during product deletion, respond with an error message and a suitable HTTP status code (e.g., 400 Bad Request)
     res.status(400).json({ error: 'Error deleting product' });
   }
 };
 
 
+
+// Function to update a product
 // Function to update a product
 exports.updateProduct = async (req, res) => {
+
   // Check if the user has permission to update products
   if (!req.user.permissions.updateProduct) {
     return res.status(403).json({ error: 'Unauthorized to update products' });
@@ -113,13 +131,22 @@ exports.updateProduct = async (req, res) => {
   const { name, quantity, description, productType } = req.body;
 
   try {
-    // Add the update product logic here (e.g., updating in the database)
+    // Add the product update logic here (e.g., updating in the database)
     // ...
-    res.status(200).json({ message: 'Product updated successfully' });
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { name, quantity, description, productType },
+      { new: true }
+    );
+
+    // Respond with a success message and an HTTP status code indicating success (200 OK)
+    res.status(200).json({updatedProduct, message: 'Product updated successfully' });
   } catch (error) {
+    // If there's an error during product update, respond with an error message and a suitable HTTP status code (e.g., 400 Bad Request)
     res.status(400).json({ error: 'Error updating product' });
   }
 };
+
 
 
 // Function to view all products
