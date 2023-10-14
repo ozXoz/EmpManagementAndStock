@@ -9,6 +9,12 @@ const userRoutes = require('./routes/userRoutes'); // make sure the path is corr
 const adminRoutes = require('./routes/ adminRoutes'); // Import admin routes
 const isAdmin = require('./middlewares/isAdmin'); // Import isAdmin middleware
 const verifyToken = require('./middlewares/verifyToken'); // Adjust the path as needed
+const logoutRouter = require('./routes/logout'); // Adjust the path as needed
+
+// ...
+
+
+
 
 
 app.use(express.json()); // for parsing application/json
@@ -22,7 +28,8 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error(err));
 // User routes
-
+// Include the logout router as middleware
+app.use('/api', logoutRouter); // Adjust the route path as needed
 app.use('/api/users', userRoutes); // all user routes will be prefixed with '/api/users'
 app.use('/api/admin', verifyToken, adminRoutes); // Prefix admin routes with '/api/admin'
 app.listen(3000, () => {
