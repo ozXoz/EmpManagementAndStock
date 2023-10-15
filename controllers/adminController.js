@@ -92,6 +92,27 @@ exports.addProduct = async (req, res) => {
   }
 };
 
+exports.updateUserPermission = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const permission = req.params.permission;
+    const allowed = req.body.allowed;
+
+    // Update the user's permission in the database
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      [`permissions.${permission}`]: allowed,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ message: 'Permission updated successfully' });
+  } catch (error) {
+    console.error('Error updating permission:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 // Admin action to update a product
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;

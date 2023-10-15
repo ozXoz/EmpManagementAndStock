@@ -17,6 +17,7 @@ router.delete('/products/:id', adminController.deleteProduct);
 router.post('/product-types', adminController.addProductType);
 router.put('/product-types/:id', adminController.updateProductType);
 router.delete('/product-types/:id', adminController.deleteProductType);
+router.put('/users/:userId/permissions/:permission', adminController.updateUserPermission);
 
 // Similar routes for managing products can be added
 

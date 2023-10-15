@@ -37,6 +37,11 @@ exports.login = async (req, res) => {
       return res.status(400).send({ message: 'Invalid username/password' });
     }
 
+    // Set the user's role in the response
+    // let message = 'Logged in as user'; // Default message for non-admin users
+    // if (user.role === 'admin') {
+    //   message = 'Logged in as admin'; // Set message for admin users
+    // }
     // Include the permissions property when creating the token
     const token = jwt.sign(
       {
@@ -54,8 +59,8 @@ exports.login = async (req, res) => {
     res.send({
       user,
       token,
-      message: user.role === 'admin' ? 'Logged in as admin' : 'Logged in as user',
-    });
+      role: user.role, // Include the user's role
+      message: user.role === 'admin' ? 'Logged in as admin' : 'Logged in as user',    });
   } catch (error) {
     console.log(error);
     res.status(500).send(error);

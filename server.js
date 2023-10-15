@@ -10,6 +10,7 @@ const adminRoutes = require('./routes/ adminRoutes'); // Import admin routes
 const isAdmin = require('./middlewares/isAdmin'); // Import isAdmin middleware
 const verifyToken = require('./middlewares/verifyToken'); // Adjust the path as needed
 const logoutRouter = require('./routes/logout'); // Adjust the path as needed
+const permissionRoutes = require('./routes/permissionRoutes'); // Import permission routes
 
 // ...
 
@@ -19,6 +20,8 @@ const logoutRouter = require('./routes/logout'); // Adjust the path as needed
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true }));
+
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -32,7 +35,10 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api', logoutRouter); // Adjust the route path as needed
 app.use('/api/users', userRoutes); // all user routes will be prefixed with '/api/users'
 app.use('/api/admin', verifyToken, adminRoutes); // Prefix admin routes with '/api/admin'
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+
+// Add the permission routes to the app
+app.use('/api', permissionRoutes); // Include the permission routes
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
 });
 
