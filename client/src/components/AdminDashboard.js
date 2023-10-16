@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAuthToken } from './auth';
+import { Link } from 'react-router-dom';
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -72,7 +73,9 @@ const togglePermission = (userId, permission) => {
   return (
     <div>
       <h2>Admin Dashboard</h2>
-      <table>
+      <Link to="/product-types">View Product Types</Link>
+      <Link to="/products">View Products </Link>
+            <table>
         <thead>
           <tr>
             <th>ID</th>
