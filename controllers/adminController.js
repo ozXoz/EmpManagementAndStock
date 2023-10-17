@@ -83,14 +83,34 @@ exports.deleteProductType = async (req, res) => {
 // Admin action to add a new product
 exports.addProduct = async (req, res) => {
   const { name, quantity, description, productType } = req.body;
+  console.log('Received request to add a product:', { name, quantity, description, productType });
+
   try {
-    const product = new Product({ name, quantity, description, productType });
+    let productTypeId;
+
+    // Check if the provided productType exists
+    const existingProductType = await ProductType.findOne({ name: productType });
+
+    if (existingProductType) {
+      productTypeId = existingProductType._id;
+    } else {
+      // If it doesn't exist, create a new product type
+      const newProductType = new ProductType({ name: productType });
+      const savedProductType = await newProductType.save();
+      productTypeId = savedProductType._id;
+    }
+
+    const product = new Product({ name, quantity, description, productType: productTypeId });
     await product.save();
     res.status(201).json(product);
   } catch (error) {
+    console.error('Error adding product:', error);
     res.status(400).json({ error: 'Error adding product' });
   }
 };
+
+
+
 
 exports.updateUserPermission = async (req, res) => {
   try {

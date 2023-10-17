@@ -7,29 +7,30 @@ function ProductType() {
   const [newProductType, setNewProductType] = useState({
     name: '',
   });
-  const [editingProductType, setEditingProductType] = useState(null);
+  const [editingProductType, setEditingProductType] = useState(null); // Add this line
 
   useEffect(() => {
     const authToken = getAuthToken();
     console.log('Authentication token:', authToken);
-    axios
-      .get('http://localhost:3001/api/admin/product-types', {
-        headers: {
-          'Authorization': `Bearer ${authToken}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        // Handle the response here
+
+    async function fetchProductTypes() {
+      try {
+        const response = await axios.get('http://localhost:3001/api/admin/product-types', {
+          headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
         setProductTypes(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here
+      } catch (error) {
         console.error('Error fetching product types:', error);
-      });
+      }
+    }
+
+    fetchProductTypes();
   }, []);
 
-  // Handle input changes for the new product type
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewProductType({
@@ -38,7 +39,6 @@ function ProductType() {
     });
   };
 
-  // Handle submission of the new product type
   const handleAddProductType = () => {
     const authToken = getAuthToken();
 
@@ -50,13 +50,10 @@ function ProductType() {
         },
       })
       .then((response) => {
-        // Handle success, e.g., update the list of product types
         setProductTypes([...productTypes, response.data]);
-        // Clear the form fields
         setNewProductType({ name: '' });
       })
       .catch((error) => {
-        // Handle errors, e.g., display an error message
         console.error('Error adding product type:', error);
       });
   };
@@ -64,6 +61,7 @@ function ProductType() {
   const handleEditProductType = (productTypeId) => {
     setEditingProductType(productTypeId);
   };
+
 
   const handleSaveProductType = (productType) => {
     const authToken = getAuthToken();
@@ -112,7 +110,6 @@ function ProductType() {
   return (
     <div>
       <h2>Product Types</h2>
-      {/* Add a form to add a new product type */}
       <div>
         <h3>Add a New Product Type</h3>
         <input
@@ -124,7 +121,6 @@ function ProductType() {
         />
         <button onClick={handleAddProductType}>Add Product Type</button>
       </div>
-      {/* Existing table of product types */}
       <table>
         <thead>
           <tr>
@@ -134,38 +130,40 @@ function ProductType() {
           </tr>
         </thead>
         <tbody>
-          {productTypes.map((type) => (
-            <tr key={type._id}>
-              <td>{type._id}</td>
-              <td>
-                {editingProductType === type._id ? (
-                  <input
-                    type="text"
-                    name="name"
-                    value={type.name}
-                    onChange={(e) =>
-                      setProductTypes(
-                        productTypes.map((pt) =>
-                          pt._id === type._id ? { ...pt, name: e.target.value } : pt
-                        )
-                      )
-                    }
-                  />
-                ) : (
-                  type.name
-                )}
-              </td>
-              <td>
-                {editingProductType === type._id ? (
-                  <button onClick={() => handleSaveProductType(type)}>Save</button>
-                ) : (
-                  <button onClick={() => handleEditProductType(type._id)}>Edit</button>
-                )}
-                <button onClick={() => handleDeleteProductType(type._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {productTypes.map((type) => (
+    <tr key={type._id}>
+      <td>{type._id}</td>
+      <td>
+        {editingProductType === type._id ? (
+          <input
+            type="text"
+            name="name"
+            value={type.name}
+            onChange={(e) =>
+              setProductTypes(
+                productTypes.map((t) =>
+                  t._id === type._id ? { ...t, name: e.target.value } : t
+                )
+              )
+            }
+          />
+        ) : (
+          type.name
+        )}
+      </td>
+      <td>
+        {editingProductType === type._id ? (
+          <button onClick={() => handleSaveProductType(type)}>Save</button>
+        ) : (
+          <>
+            <button onClick={() => handleEditProductType(type._id)}>Edit</button>
+            <button onClick={() => handleDeleteProductType(type._id)}>Delete</button>
+          </>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
       </table>
     </div>
   );
