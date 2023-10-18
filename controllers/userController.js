@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken'); // Ensure you have jwt
 const Product = require('../models/Product');
+const ProductType = require('../models/ProductType');
+
 
 
 
@@ -74,21 +76,29 @@ exports.login = async (req, res) => {
 // Function to add a product
 // Function to add a product
 exports.addProduct = async (req, res) => {
-  // Check if the user has permission to add products
-  if (!req.user.permissions.addProduct) {
-    return res.status(403).json({ error: 'Unauthorized to add products' });
-  }
+  const { name, quantity, description, productType } = req.body;
+  console.log('Received request to add a product:', { name, quantity, description, productType });
 
   try {
-    // Add the product creation logic here (e.g., saving to the database)
-    // ...
-    const newProduct = new Product(req.body);
-    // Respond with a success message and an HTTP status code indicating success (201 Created)
-    // Save the new product to the database
-    await newProduct.save();
-    res.status(201).json({ message: 'Product added successfully' });
+    let productTypeId;
+
+    // Check if the provided productType exists
+    const existingProductType = await ProductType.findOne({ name: productType });
+
+    if (existingProductType) {
+      productTypeId = existingProductType._id;
+    } else {
+      // If it doesn't exist, create a new product type
+      const newProductType = new ProductType({ name: productType });
+      const savedProductType = await newProductType.save();
+      productTypeId = savedProductType._id;
+    }
+
+    const product = new Product({ name, quantity, description, productType: productTypeId });
+    await product.save();
+    res.status(201).json(product);
   } catch (error) {
-    // If there's an error during product creation, respond with an error message and a suitable HTTP status code (e.g., 400 Bad Request)
+    console.error('Error adding product:', error);
     res.status(400).json({ error: 'Error adding product' });
   }
 };
@@ -170,6 +180,17 @@ exports.viewProducts = async (req, res) => {
     res.status(500).json({ error: 'Error fetching products' });
   }
 };
+
+// Fetch user-specific product types data
+exports.getUserProductTypes = async (req, res) => {
+  try {
+    const productTypes = await ProductType.find();
+    res.status(200).json(productTypes);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching product types' });
+  }
+};
+
 
 
 

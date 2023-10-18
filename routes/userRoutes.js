@@ -19,5 +19,7 @@ router.put('/products/:id', verifyToken, userController.updateProduct);
 // Route to view all products, protected by verifyToken middleware
 router.get('/products', verifyToken, userController.viewProducts);
 
+// Route to fetch user-specific product types, protected by verifyToken middleware
+router.get('/product-types', verifyToken, userController.getUserProductTypes);
 
 module.exports = router;
