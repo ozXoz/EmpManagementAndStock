@@ -1,0 +1,66 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* This makes sure your form is center aligned on the page */
+    background-color: #f7f7f7; /* Light grey background */
+  }
+  
+  .register-form {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Small shadow for 3D effect */
+  }
+  .register-header { /* This is assuming your "Register" text is in an element with a class of "register-header" */
+    font-size: 3rem; /* Increase font-size, the 'rem' unit is scalable and adjustable to user settings */
+    font-weight: 700; /* Makes the text bolder */
+    margin-top: -5rem; /* Negative value to move it higher up */
+    margin-bottom: 2rem; /* Adjust space between the header and the form */
+    text-align: center; /* Center the text */
+    color: #333; /* Optional: Choose a color */
+  }
+  
+  
+  .input-group {
+    margin-bottom: 1.5rem; /* Spacing between input fields */
+  }
+  
+  .input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .5rem; /* Spacing between label and input field */
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: .75rem;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb; /* Light border */
+    font-size: 1rem;
+  }
+  
+  .input-group input:focus {
+    border-color: #a2d9ff; /* Highlight border when input is focused */
+    outline: none;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: .75rem;
+    background-color: #4c84ff; /* Your primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-button:hover {
+    background-color: #6a9eff; /* A lighter shade when hovering */
+  }
+  

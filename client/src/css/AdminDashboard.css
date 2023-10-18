@@ -1,0 +1,161 @@
+/* General Styles */
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #fafafa; /* Even softer background */
+  margin: 0;
+  color: #555; /* Darker color for better readability */
+  line-height: 1.7; /* Further improved line spacing */
+}
+
+/* Admin Dashboard Container */
+.admin-dashboard {
+  width: 90%;
+  max-width: 1200px;
+  margin: 3rem auto; /* More vertical space */
+  background: #ffffff;
+  border-radius: 12px; /* Very rounded corners for modern appeal */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Very subtle shadow */
+  padding: 2rem; /* Relative units for better scaling */
+  overflow: hidden;
+  position: relative; /* Ready for absolute positioning elements */
+}
+
+/* Header */
+.admin-dashboard h2 {
+  color: #4c84ff; /* Using primary color for emphasis */
+  margin-bottom: 1.5rem; /* More space */
+  text-transform: uppercase;
+  letter-spacing: 1px; /* More letter spacing */
+  border-bottom: 4px solid #4c84ff; /* Making consistent with the color theme */
+  padding-bottom: 0.5rem;
+}
+
+/* Links */
+.links {
+  display: flex;
+  justify-content: space-between; /* Better spacing */
+  gap: 25px; /* More space between buttons */
+  margin-bottom: 2rem; /* Relative units */
+}
+
+.view-link {
+  background-color: #4c84ff;
+  color: white;
+  padding: 12px 25px; 
+  text-decoration: none;
+  border-radius: 8px; /* Increased roundness */
+  transition: all 0.4s ease; /* Slower transition */
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Consistent letter spacing */
+  font-weight: bold;
+  display: inline-flex; /* Centering content */
+  align-items: center;
+  justify-content: center;
+}
+
+.view-link:hover,
+.view-link:focus {
+  background-color: #668aff; /* A more noticeable hover color change */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1); /* More depth */
+  transform: scale(1.05); /* Slight growth effect */
+}
+
+/* User Table */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 2rem;
+}
+
+.users-table th,
+.users-table td {
+  padding: 1rem; /* More space, relative units */
+  text-align: left;
+  border-bottom: 1px solid #dddddd; /* Lighter border */
+}
+
+.users-table th {
+  background-color: #4c84ff;
+  color: white;
+  border-bottom: 2px solid #ffffff; /* Border to separate from the rows */
+}
+
+.users-table tr {
+  transition: background-color 0.4s ease; /* Consistent with other transitions */
+}
+
+.users-table tr:hover {
+  background-color: #f2f2f2; /* A softer color for a hover effect */
+}
+
+/* Permissions List */
+.permissions-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Increased gap for better distinction */
+}
+
+.permission-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Toggle Button */
+.toggle-button {
+  padding: 10px 20px; /* More clickable space */
+  background-color: #ff4757; /* A more vibrant color */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Consistency in roundness */
+  cursor: pointer;
+  transition: all 0.4s ease; /* Slower transition for a more fluid effect */
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.toggle-button:hover,
+.toggle-button:focus {
+  background-color: #ff6b81; /* Lighter and more noticeable hover effect */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1); /* Consistent with other elements */
+  transform: translateY(-5px); /* More pronounced lift */
+}
+/* CSS */
+.password-cell {
+  font-family: 'Courier New', Courier, monospace; /* Ensuring a monospace font for equal character width */
+  letter-spacing: 2px; /* Adding some space between "bullets" for aesthetics */
+  color: #888; /* Making it grey to indicate unavailability of the actual content */
+}
+
+/* Status Button */
+.status-button {
+  padding: 10px 15px; /* Good size for clickability */
+  color: white;
+  border: none;
+  border-radius: 8px; /* Rounded borders */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.status-allowed {
+  background-color: #28a745; /* Green for allowed */
+}
+.status-blocked {
+  background-color: #dc3545; /* Red for blocked */
+}
+
+
+
+
+.status-button:hover,
+.status-button:focus {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  transform: translateY(-3px); /* Slight upward movement */
+}
+
+

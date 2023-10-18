@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getAuthToken } from './auth';
+import '../css/Products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);

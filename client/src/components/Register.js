@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import '../css/Register.css'; // Importing a CSS file for styling
+
 function Register({ onRegister }) {
   const [formData, setFormData] = useState({
     username: '',
@@ -47,10 +49,10 @@ function Register({ onRegister }) {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="register-container">
+  <h2 className="register-header">Register</h2> 
+     <form onSubmit={handleSubmit} className="register-form">
+        <div className="input-group">
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -61,7 +63,7 @@ function Register({ onRegister }) {
             required
           />
         </div>
-        <div>
+        <div className="input-group">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -73,10 +75,11 @@ function Register({ onRegister }) {
           />
         </div>
         {/* Add other registration fields */}
-        <button type="submit">Register</button>
+        <button type="submit" className="register-button">Register</button>
       </form>
     </div>
   );
+  
 }
 
 export default Register;

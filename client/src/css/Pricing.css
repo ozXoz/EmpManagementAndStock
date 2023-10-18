@@ -1,0 +1,107 @@
+.pricing-container {
+    font-family: 'Arial', sans-serif;
+    background-color: #6f52ed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+    color: white;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+  }
+  
+  .header span {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .menu {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .menu a:hover {
+    text-decoration: underline;
+  }
+  
+  .pricing-title {
+    margin-top: 30px;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .pricing-table {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  
+  .plan {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .plan-title {
+    font-size: 18px;
+    color: #6f52ed;
+    margin-bottom: 10px;
+  }
+  
+  .plan-price {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #6f52ed;
+  }
+  
+  .features {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .buy-btn {
+    padding: 10px 30px;
+    background-color: #6f52ed;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .buy-btn:hover {
+    background-color: #593fdb;
+  }
+  
+  
+  /* Existing styles */
+
+/* New styles to change text color to black for plan details */
+.pricing-table .plan {
+    color: black;
+  }
+  
+  .pricing-table .plan .plan-title,
+  .pricing-table .plan .plan-price,
+  .pricing-table .plan .features div {
+    color: black;
+  }
+  

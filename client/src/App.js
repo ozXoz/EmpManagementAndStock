@@ -10,6 +10,10 @@ import AuthRoute from './components/AuthRoute';
 import ProductType from './components/ProductType'; // Import the ProductType component
 import Products from './components/Products';
 import LogoutButton from './components/LogoutButton';
+import Contact from './components/Contact';
+import AboutUs from './components/AboutUs';
+import Pricing from './components/Pricing';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,9 +28,12 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/register" element={<Register />} />
         {user && user.role === 'admin' ? (
@@ -43,6 +50,7 @@ function App() {
 
       {/* Conditionally render the LogoutButton based on the user */}
       {user && <LogoutButton onLogout={handleLogout} />}
+      
     </Router>
   );
 }

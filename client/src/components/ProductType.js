@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getAuthToken } from './auth';
-
+import  '../css/ProductType.css';
 function ProductType() {
   const [productTypes, setProductTypes] = useState([]);
   const [newProductType, setNewProductType] = useState({
@@ -98,7 +98,7 @@ function ProductType() {
   };
 
   return (
-    <div>
+    <div className="product-type-page"> 
       <h2>Product Types</h2>
       <div>
         <h3>Add a New Product Type</h3>
@@ -108,10 +108,11 @@ function ProductType() {
           placeholder="Product Type Name"
           value={newProductType.name}
           onChange={handleInputChange}
+          className="new-product-type-input"
         />
-        <button onClick={handleAddProductType}>Add Product Type</button>
+        <button onClick={handleAddProductType} className="add-product-type-button">Add Product Type</button> {/* Apply the CSS class */}
       </div>
-      <table>
+      <table className="product-types-table"> 
         <thead>
           <tr>
             <th>ID</th>
@@ -136,6 +137,7 @@ function ProductType() {
                         )
                       )
                     }
+                    className="new-product-type-input" 
                   />
                 ) : (
                   type.name
@@ -143,11 +145,11 @@ function ProductType() {
               </td>
               <td>
                 {editingProductType === type._id ? (
-                  <button onClick={() => handleSaveProductType(type)}>Save</button>
+                  <button onClick={() => handleSaveProductType(type)} className="save-button">Save</button> 
                 ) : (
                   <>
-                    <button onClick={() => handleEditProductType(type._id)}>Edit</button>
-                    <button onClick={() => handleDeleteProductType(type._id)}>Delete</button>
+                    <button onClick={() => handleEditProductType(type._id)} className="edit-button">Edit</button> 
+                    <button onClick={() => handleDeleteProductType(type._id)} className="delete-button">Delete</button> 
                   </>
                 )}
               </td>

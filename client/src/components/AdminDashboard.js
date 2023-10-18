@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAuthToken } from './auth';
 import { Link } from 'react-router-dom';
+import '../css/AdminDashboard.css'
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -70,46 +71,52 @@ const togglePermission = (userId, permission) => {
 };
 
 
-  return (
-    <div>
-      <h2>Admin Dashboard</h2>
-      <Link to="/product-types">View Product Types</Link>
-      <Link to="/products">View Products </Link>
-            <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Role</th>
-            <th>Password</th>
-            <th>Permissions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id}>
-              <td>{user._id}</td>
-              <td>{user.username}</td>
-              <td>{user.role}</td>
-              <td>{user.password}</td>
-              <td>
-                <ul>
-                  {Object.entries(user.permissions).map(([permission, allowed]) => (
-                    <li key={permission}>
-                      {permission}: {allowed ? 'Allowed' : 'Blocked'}
-                      <button onClick={() => togglePermission(user._id, permission)}>
-                        Toggle
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+return (
+  <div className="admin-dashboard">
+    <h2>Admin Dashboard</h2>
+    <div className="links">
+      <Link to="/product-types" className="view-link">View Product Types</Link>
+      <Link to="/products" className="view-link">View Products</Link>
     </div>
-  );
+    <table className="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Password</th>
+          <th>Permissions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user._id}>
+            <td>{user._id}</td>
+            <td>{user.username}</td>
+            <td>{user.role}</td>
+            <td className="password-cell">••••••••</td> {/* Placeholder for the password */}
+            <td>
+              <ul className="permissions-list">
+                {Object.entries(user.permissions).map(([permission, allowed]) => (
+                  <li key={permission} className="permission-item">
+                    {permission}:
+                    <button
+                      onClick={() => togglePermission(user._id, permission)}
+                      className={`status-button ${allowed ? 'status-allowed' : 'status-blocked'}`}
+                    >
+                      {allowed ? 'Allowed' : 'Blocked'}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
+
 }
 
 export default AdminDashboard;
