@@ -7,17 +7,16 @@ function ProductType() {
   const [newProductType, setNewProductType] = useState({
     name: '',
   });
-  const [editingProductType, setEditingProductType] = useState(null); // Add this line
+  const [editingProductType, setEditingProductType] = useState(null);
 
   useEffect(() => {
     const authToken = getAuthToken();
-    console.log('Authentication token:', authToken);
 
     async function fetchProductTypes() {
       try {
         const response = await axios.get('http://localhost:3001/api/admin/product-types', {
           headers: {
-            'Authorization': `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken}`,
             'Content-Type': 'application/json',
           },
         });
@@ -45,7 +44,7 @@ function ProductType() {
     axios
       .post('http://localhost:3001/api/admin/product-types', newProductType, {
         headers: {
-          'Authorization': `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken}`,
           'Content-Type': 'application/json',
         },
       })
@@ -62,27 +61,20 @@ function ProductType() {
     setEditingProductType(productTypeId);
   };
 
-
   const handleSaveProductType = (productType) => {
     const authToken = getAuthToken();
 
     axios
-      .put(
-        `http://localhost:3001/api/admin/product-types/${productType._id}`,
-        productType,
-        {
-          headers: {
-            'Authorization': `Bearer ${authToken}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      .put(`http://localhost:3001/api/admin/product-types/${productType._id}`, productType, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+      })
       .then(() => {
-        // Handle success, e.g., update the list of product types
         setEditingProductType(null);
       })
       .catch((error) => {
-        // Handle errors, e.g., display an error message
         console.error('Error updating product type:', error);
       });
   };
@@ -93,16 +85,14 @@ function ProductType() {
     axios
       .delete(`http://localhost:3001/api/admin/product-types/${productTypeId}`, {
         headers: {
-          'Authorization': `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken}`,
         },
       })
       .then(() => {
-        // Handle success, e.g., update the list of product types by removing the deleted one
         const updatedProductTypes = productTypes.filter((type) => type._id !== productTypeId);
         setProductTypes(updatedProductTypes);
       })
       .catch((error) => {
-        // Handle errors, e.g., display an error message
         console.error('Error deleting product type:', error);
       });
   };
@@ -130,40 +120,40 @@ function ProductType() {
           </tr>
         </thead>
         <tbody>
-  {productTypes.map((type) => (
-    <tr key={type._id}>
-      <td>{type._id}</td>
-      <td>
-        {editingProductType === type._id ? (
-          <input
-            type="text"
-            name="name"
-            value={type.name}
-            onChange={(e) =>
-              setProductTypes(
-                productTypes.map((t) =>
-                  t._id === type._id ? { ...t, name: e.target.value } : t
-                )
-              )
-            }
-          />
-        ) : (
-          type.name
-        )}
-      </td>
-      <td>
-        {editingProductType === type._id ? (
-          <button onClick={() => handleSaveProductType(type)}>Save</button>
-        ) : (
-          <>
-            <button onClick={() => handleEditProductType(type._id)}>Edit</button>
-            <button onClick={() => handleDeleteProductType(type._id)}>Delete</button>
-          </>
-        )}
-      </td>
-    </tr>
-  ))}
-</tbody>
+          {productTypes.map((type) => (
+            <tr key={type._id}>
+              <td>{type._id}</td>
+              <td>
+                {editingProductType === type._id ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={type.name}
+                    onChange={(e) =>
+                      setProductTypes(
+                        productTypes.map((t) =>
+                          t._id === type._id ? { ...t, name: e.target.value } : t
+                        )
+                      )
+                    }
+                  />
+                ) : (
+                  type.name
+                )}
+              </td>
+              <td>
+                {editingProductType === type._id ? (
+                  <button onClick={() => handleSaveProductType(type)}>Save</button>
+                ) : (
+                  <>
+                    <button onClick={() => handleEditProductType(type._id)}>Edit</button>
+                    <button onClick={() => handleDeleteProductType(type._id)}>Delete</button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

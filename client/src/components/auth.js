@@ -11,3 +11,9 @@ export function setAuthToken(token) {
     localStorage.removeItem('authToken');
   }
   
+  // auth.js
+
+export const clearAuthToken = () => {
+  // Clear the authentication token from local storage
+  localStorage.removeItem('authToken'); // Replace 'authToken' with your actual token key
+};
